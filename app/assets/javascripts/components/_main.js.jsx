@@ -1,9 +1,12 @@
-var Main = React.createClass({
+class Main extends React.Component {
   render() {
+    const name = 'Ryan';
+
     return (
       <div>
-        <h1>Hello, World!</h1>
+        <Header name={name} />
+        <Body />
       </div>
-    );
+    )
   }
-});
+}
