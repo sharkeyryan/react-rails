@@ -4,8 +4,10 @@ class Main extends React.Component {
 
     return (
       <div>
-        <Header name={name} />
-        <Body />
+        <div className="container">
+          <Header name={name} />
+          <Body />
+        </div>
       </div>
     )
   }

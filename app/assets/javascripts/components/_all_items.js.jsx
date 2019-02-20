@@ -1,8 +1,6 @@
 class AllItems extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleDelete(id) {
@@ -12,10 +10,18 @@ class AllItems extends React.Component {
   render() {
     var items = this.props.items.map((item) => {
       return (
-        <div key={item.id}>
-          <h3>{item.name}</h3>
-          <p>{item.description}</p>
-          <button onClick={this.handleDelete(item.id)}>Delete</button>
+        <div>
+          <ul className="collection">
+            <li className="collection-item" key={item.id}>
+              <b>{item.name}</b><br />
+              <span>{item.description}</span>
+              <a
+                onClick={this.handleDelete.bind(this, item.id)}
+                className="waves-effect waves-teal btn-flat right">
+                <span>X</span>
+              </a>
+            </li>
+          </ul>
         </div>
       )
     });

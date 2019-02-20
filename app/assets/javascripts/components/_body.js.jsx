@@ -31,16 +31,13 @@ class Body extends React.Component {
     fetch(`/api/v1/items/${id}`, options)
     .then(function(response) {
       if(response.ok){
-        return response.json();
+        console.log(`Deletion successful (${id})`);
       } else {
         throw new Error("Delete Failed")
       }
     })
-    .then(function(responseBody){
-      return responseBody;
-      console.log(JSON.stringify(responseBody));
-    }).
-    then((id) => {
+    .then(() => {
+      console.log(id);
       this.removeItemClient(id);
     })
     .catch(function(error) {
