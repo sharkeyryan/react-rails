@@ -11,13 +11,17 @@ class Body extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/v1/items.json')
+    const options = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    };
+
+    fetch('/api/v1/items.json', options)
       .then(response => response.json())
       .then(data => this.setState({ items: data }));
   }
 
   handleSubmit(item) {
-    console.log(`Item: ${item}`);
     var newState = this.state.items.concat(item);
     this.setState({ items: newState })
   }
@@ -37,7 +41,7 @@ class Body extends React.Component {
       }
     })
     .then(() => {
-      console.log(id);
+      M.toast({html: `Item deleted successfully.`});
       this.removeItemClient(id);
     })
     .catch(function(error) {
@@ -58,13 +62,11 @@ class Body extends React.Component {
       <div>
         <NewItem handleSubmit={this.handleSubmit} />
 
-        <div className="card-panel">
-          <ul className="collection">
-            <AllItems
-              items={this.state.items}
-              handleDelete={this.handleDelete} />
-          </ul>
-        </div>
+        {this.state.items.length > 0 &&
+          <AllItems
+            items={this.state.items}
+            handleDelete={this.handleDelete} />
+        }
       </div>
     )
   }

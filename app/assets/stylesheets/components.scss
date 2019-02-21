@@ -1,0 +1,28 @@
+ul.collapsible {
+  li.active span.arrow::before {
+    padding-right: 5px;
+    content: "\25B4";
+  }
+
+  li span.arrow::before {
+    padding-right: 5px;
+    content: "\25BE";
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.delete-icon {
+  top: 2px;
+  position: relative;
+}
+
+.error {
+  color: #f44336 !important;
+}
+
+.success {
+  color: #76ff03 !important;
+}
