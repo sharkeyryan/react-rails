@@ -10,19 +10,18 @@ class AllItems extends React.Component {
   render() {
     var items = this.props.items.map((item) => {
       return (
-        <div>
-          <ul className="collection">
-            <li className="collection-item" key={item.id}>
-              <b>{item.name}</b><br />
-              <span>{item.description}</span>
-              <a
-                onClick={this.handleDelete.bind(this, item.id)}
-                className="waves-effect waves-teal btn-flat right">
-                <span>X</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <li className="collection-item" key={item.id}>
+          <div>
+            <b>{item.name}</b>
+            <a
+              onClick={this.handleDelete.bind(this, item.id)}
+              title="Delete"
+              className="secondary-content">
+              <i className="material-icons">delete</i>
+            </a>
+          </div>
+          <div>{item.description}</div>
+        </li>
       )
     });
 

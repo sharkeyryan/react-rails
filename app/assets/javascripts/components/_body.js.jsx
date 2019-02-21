@@ -57,9 +57,14 @@ class Body extends React.Component {
     return (
       <div>
         <NewItem handleSubmit={this.handleSubmit} />
-        <AllItems
-          items={this.state.items}
-          handleDelete={this.handleDelete} />
+
+        <div className="card-panel">
+          <ul className="collection">
+            <AllItems
+              items={this.state.items}
+              handleDelete={this.handleDelete} />
+          </ul>
+        </div>
       </div>
     )
   }

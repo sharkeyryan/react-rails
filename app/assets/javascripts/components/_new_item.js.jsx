@@ -60,7 +60,10 @@ class NewItem extends React.Component {
         </div>
 
         <div>
-          <button onClick={this.handleClick}>Submit</button>
+          <a
+            onClick={this.handleClick}
+            className="waves-effect waves-light btn">
+            <i class="material-icons left">save</i>Save</a>
         </div>
       </div>
     )
