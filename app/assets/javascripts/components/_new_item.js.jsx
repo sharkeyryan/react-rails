@@ -15,11 +15,9 @@ class NewItem extends React.Component {
     this.fieldsBlankValidate();
 
     if (this.state.fieldsBlank) {
-      M.toast(
-        {
-          html: `<span class="error">Error: Input fields cannot be blank.</span>`
-        }
-      );
+      M.toast({
+        html: `<span class="error">Error: Input fields cannot be blank.</span>`
+      });
 
       return false;
     }
@@ -38,31 +36,29 @@ class NewItem extends React.Component {
     };
 
     fetch("/api/v1/items", options)
-    .then(function(response) {
-      if(response.ok){
-        return response.json();
-      } else {
-        throw new Error("Post Failed")
-      }
-    })
-    .then(function(responseBody){
-      M.toast(
-        {
-          html: `<span class="success">${responseBody.name} item created successfully.</span>`
+      .then(function(response) {
+        if(response.ok){
+          return response.json();
+        } else {
+          throw new Error("Post Failed")
         }
-      );
+      })
+      .then(function(responseBody){
+        M.toast({
+          html: `<span class="success">${responseBody.name} item created successfully.</span>`
+        });
 
-      return responseBody;
-    }).
-    then((item) => {
-      this.props.handleSubmit(item);
+        return responseBody;
+      }).
+      then((item) => {
+        this.props.handleSubmit(item);
 
-      this.name.current.value = "";
-      this.description.current.value = "";
-    })
-    .catch(function(error) {
-      console.log("Request failed", error);
-    });
+        this.name.current.value = "";
+        this.description.current.value = "";
+      })
+      .catch(function(error) {
+        console.log("Request failed", error);
+      });
   }
 
   fieldsBlankValidate() {

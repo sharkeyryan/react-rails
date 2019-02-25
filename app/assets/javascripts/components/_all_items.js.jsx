@@ -1,16 +1,17 @@
 class AllItems extends React.Component {
   constructor(props) {
     super(props);
-  }
 
-  // componentDidMount() {
-  //   $(document).ready(function(){
-  //     $('.collapsible').collapsible();
-  //   });
-  // }
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
 
   handleDelete(id) {
     this.props.handleDelete(id);
+  }
+
+  handleUpdate(item) {
+    this.props.handleUpdate(item);
   }
 
   render() {
@@ -20,8 +21,8 @@ class AllItems extends React.Component {
           key={item.id}
           className="collection-item">
           <Item item={item}
-            handleDelete={this.handleDelete.bind(this, item.id)}
-            handleEdit={this.handleEdit}/>
+            handleDelete={this.handleDelete}
+            handleUpdate={this.handleUpdate} />
         </li>
       )
     });

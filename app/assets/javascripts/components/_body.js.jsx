@@ -7,6 +7,8 @@ class Body extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.updateItems = this.updateItems.bind(this);
     this.removeItemClient = this.removeItemClient.bind(this);
   }
 
@@ -33,20 +35,65 @@ class Body extends React.Component {
     };
 
     fetch(`/api/v1/items/${id}`, options)
-    .then(function(response) {
-      if(response.ok){
-        console.log(`Deletion successful (${id})`);
-      } else {
-        throw new Error("Delete Failed")
-      }
-    })
-    .then(() => {
-      M.toast({html: `Item deleted successfully.`});
-      this.removeItemClient(id);
-    })
-    .catch(function(error) {
-      console.log("Delete failed", error);
+      .then(function(response) {
+        if(response.ok){
+          console.log(`Deletion successful (${id})`);
+        } else {
+          throw new Error("Delete Failed")
+        }
+      })
+      .then(() => {
+        M.toast({html: `Item deleted successfully.`});
+        this.removeItemClient(id);
+      })
+      .catch(function(error) {
+        console.log("Delete failed", error);
+      });
+  }
+
+  updateItems(item) {
+    var items = this.state.items.filter((i) => {
+      return i.id != item.id
     });
+
+    items.push(item);
+
+    this.setState({ items: items });
+  }
+
+  handleUpdate(item) {
+    const body = {
+      item: item
+    };
+
+    const options = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    };
+
+    fetch(`/api/v1/items/${item.id}`, options)
+      .then(function(response) {
+        if(response.ok){
+          console.log(`Update successful (${item.id})`);
+          return response.json();
+        } else {
+          throw new Error("Update Failed")
+        }
+      })
+      .then(function(responseBody){
+        M.toast({
+          html: `<span class="success">${item.name} item updated successfully.</span>`
+        });
+
+        return responseBody;
+      })
+      .then((item) => {
+        this.updateItems(item);
+      })
+      .catch(function(error) {
+        console.log("Update failed", error);
+      });
   }
 
   removeItemClient(id) {
@@ -65,7 +112,8 @@ class Body extends React.Component {
         {this.state.items.length > 0 &&
           <AllItems
             items={this.state.items}
-            handleDelete={this.handleDelete} />
+            handleDelete={this.handleDelete}
+            handleUpdate={this.handleUpdate} />
         }
       </div>
     )
